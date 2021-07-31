@@ -1,5 +1,3 @@
-
-
 $(document).ready(function(){
 	var html = localStorage.getItem("html") || "";
 	var css = localStorage.getItem("css") || "";
@@ -32,7 +30,7 @@ $(document).ready(function(){
 		};
 	
 	compile();
-	
+
 	var mousedownFirst = false;
 	var mousedownSecond = false;
 
