@@ -4,7 +4,6 @@
 
 textarea {
   width: 100%;
-  float: top;
   height: 100%;
   overflow: auto;
   margin: auto;
