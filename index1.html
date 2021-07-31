@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+<style>
+#container {
+  background: none no-repeat 0 0 scroll #aaa;
+  height: 600px;
+  border-radius: 0 0 6px 6px;
+  width: 700px;
+  position: relative;
+}
+
+.col {
+  height: 100%;
+  position: absolute;
+  z-index: 8000;
+  padding: 0 10px;
+}
+
+.first {
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  left: 33.33%;
+  background-color: white;
+  z-index: 9000;
+}
+
+.second {
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  right: 33.33%;
+  background-color: white;
+  z-index: 9000;
+}
+
+.resizer:hover {
+  cursor: col-resize;
+}
+
+#col1 {
+  background: none no-repeat 0 0 scroll #444;
+  border-radius: 0 0 0 6px;
+  left: 0;
+  right: calc(66.66% - 4px);
+}
+#col2 {
+  background: none no-repeat 0 0 scroll #111;
+  left: calc(33.33% + 4px);
+  right: calc(33.33% - 4px);
+  color: white;
+}
+#col3 {
+  background: none no-repeat 0 0 scroll #777;
+  border-radius: 0 0 6px 0; 
+  left: calc(66.66% - 4px);
+  right: 0;
+}
+</style>
+<script type="text/javascript">
+var mousedownFirst = false;
+var mousedownSecond = false;
+$(document).ready(function(){
+  
+  $(".first").on("mousedown", function(e){
+    mousedownFirst = true;
+  });
+  $(".second").on("mousedown", function(e){
+    mousedownSecond = true;
+  });
+  $("#container").on("mouseup", function(e){
+    mousedownFirst = false;
+    mousedownSecond = false;
+  });
+  $("#container").on("mousemove", function(e){
+    
+    parentOffset = $(this).offset();
+    
+    if(mousedownFirst){
+      $(".first").css("left", e.pageX - parentOffset.left);
+      $("#col1").css("width", e.pageX - parentOffset.left);
+      $("#col2").css("left", e.pageX - parentOffset.left);      
+    }
+    if(mousedownSecond){
+      $(".second").css("left", e.pageX - parentOffset.left);
+      $("#col2").css("right", e.pageX - parentOffset.left);
+      $("#col3").css("left", e.pageX - parentOffset.left);
+    }
+    
+  });
+  
+});
+</script>
+</head>
+<body>
+  <div id="container">
+    <div id="col1" class="col">
+      <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+    </div>
+    <div class="resizer first"></div>
+    <div id="col2" class="col">
+      <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+    </div>
+    <div class="resizer second"></div>
+    <div id="col3" class="col">
+      <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+    </div>
+  </div>
+</body>
+</html>
